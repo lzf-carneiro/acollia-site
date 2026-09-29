@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acollia · saúde que acolhe</title>
+<meta name="description" content="Acollia é o sistema da enfermaria escolar: atendimentos, fichas médicas atualizadas pelas famílias, agenda de medicação, vacinação, estoque e ficha de viagem, com os dados de saúde protegidos.">
+<meta property="og:title" content="Acollia · saúde que acolhe">
+<meta property="og:description" content="O sistema da enfermaria escolar: atendimentos, fichas médicas, medicação, vacinação e viagens num só lugar.">
+<meta property="og:image" content="https://acollia.com.br/img/og.png">
+<meta property="og:url" content="https://acollia.com.br/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#073A4A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --petroleo: #073A4A; --petroleo-2: #0B4C5F; --turquesa: #2EC4B6; --turquesa-escuro: #137F75;
+  --turquesa-claro: #A9ECE4; --nevoa: #F4F7F7; --papel: #FFFFFF; --tinta: #0B2530; --suave: #4A626B; --linha: #DDE7E8;
+  --f: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --raio: 18px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; font: 17px/1.6 var(--f); color: var(--tinta); background: var(--papel); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--turquesa-escuro); }
+.env { max-width: 1160px; margin: 0 auto; padding-inline: 24px; }
+h1, h2, h3 { line-height: 1.12; text-wrap: balance; margin: 0; color: var(--petroleo); letter-spacing: -0.01em; }
+h1 { font-size: clamp(36px, 5.4vw, 60px); font-weight: 800; }
+h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; }
+h3 { font-size: 19px; font-weight: 700; }
+p { margin: 0; }
+.rotulo { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--turquesa-escuro); }
+.botao { display: inline-flex; align-items: center; gap: 10px; background: var(--petroleo); color: #fff; text-decoration: none; font-weight: 700;
+  padding: 14px 22px; border-radius: 12px; transition: background .2s; }
+.botao:hover { background: var(--petroleo-2); }
+.botao.claro { background: #fff; color: var(--petroleo); }
+.botao.claro:hover { background: var(--turquesa-claro); }
+.botao:focus-visible, a:focus-visible { outline: 3px solid var(--turquesa); outline-offset: 3px; }
+
+/* topo */
+header.topo { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
+header.topo .env { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 72px; }
+header.topo .marca img { height: 46px; width: auto; }
+header.topo nav { display: flex; align-items: center; gap: 26px; }
+header.topo nav a { color: var(--tinta); text-decoration: none; font-weight: 600; font-size: 15px; }
+header.topo nav a:hover { color: var(--turquesa-escuro); }
+header.topo nav .botao { color: #fff; padding: 10px 16px; }
+@media (max-width: 820px) { header.topo nav a:not(.botao) { display: none; } }
+@media (max-width: 480px) { header.topo .marca img { height: 38px; } header.topo nav .botao { padding: 9px 12px; font-size: 14px; } header.topo nav .botao .longo { display: none; } }
+
+/* abertura */
+.abertura { background: linear-gradient(180deg, var(--nevoa) 0%, #fff 100%); padding-block: 72px 40px; overflow: hidden; }
+.abertura .grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.abertura .texto { max-width: 780px; display: grid; gap: 22px; }
+.abertura .texto p.lead { font-size: clamp(18px, 2vw, 21px); color: var(--suave); max-width: 62ch; }
+.abertura .acoes { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.abertura .acoes a.link { font-weight: 700; text-decoration: none; }
+.tela-grande { border-radius: 16px; overflow: hidden; box-shadow: 0 30px 70px -20px rgba(7,58,74,.35), 0 0 0 1px rgba(7,58,74,.08); background: #fff; }
+.tela-grande .barra { height: 34px; background: #EEF3F3; display: flex; align-items: center; gap: 7px; padding-inline: 14px; }
+.tela-grande .barra i { width: 11px; height: 11px; border-radius: 50%; background: #CBD8DA; }
+.tela-grande .barra span { margin-left: 12px; font-size: 13px; color: var(--suave); }
+.selos { display: flex; flex-wrap: wrap; gap: 10px; }
+.selos span { font-size: 14px; font-weight: 600; background: #fff; border: 1px solid var(--linha); border-radius: 999px; padding: 6px 14px; color: var(--petroleo); }
+
+section { padding-block: 88px; scroll-margin-top: 72px; }
+.cabeca { display: grid; gap: 14px; max-width: 760px; margin-bottom: 44px; }
+.cabeca p { color: var(--suave); font-size: 18px; }
+
+/* para quem */
+.quem { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 18px; }
+@media (min-width: 1000px) { .quem { grid-template-columns: repeat(5, 1fr); } }
+.quem div { border-top: 3px solid var(--turquesa); padding-top: 16px; display: grid; gap: 8px; }
+.quem p { color: var(--suave); font-size: 16px; }
+
+/* funções */
+.funcoes { background: var(--nevoa); }
+.lista-funcoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 18px; }
+.funcao { background: #fff; border-radius: var(--raio); padding: 26px; display: grid; gap: 10px; align-content: start; border: 1px solid var(--linha); }
+.funcao svg { width: 30px; height: 30px; color: var(--turquesa-escuro); }
+.funcao p { color: var(--suave); font-size: 16px; }
+
+/* telas */
+.telas-lista { display: grid; gap: 64px; }
+.tela-item { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 44px; align-items: center; }
+.tela-item:nth-child(even) { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+.tela-item:nth-child(even) .txt { order: 2; }
+.tela-item .txt { display: grid; gap: 12px; }
+.tela-item .txt p { color: var(--suave); }
+.tela-item ul { margin: 6px 0 0; padding-left: 20px; color: var(--suave); display: grid; gap: 4px; font-size: 16px; }
+.tela-item figure { margin: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -18px rgba(7,58,74,.30), 0 0 0 1px rgba(7,58,74,.08); }
+@media (max-width: 860px) { .tela-item, .tela-item:nth-child(even) { grid-template-columns: 1fr; gap: 20px; } .tela-item:nth-child(even) .txt { order: 0; } }
+
+/* segurança */
+.seguranca { background: var(--petroleo); color: #E6F2F2; }
+.seguranca h2, .seguranca h3 { color: #fff; }
+.seguranca .rotulo { color: var(--turquesa); }
+.seguranca .cabeca p { color: #B8D3D6; }
+.lista-seg { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 30px 36px; }
+.lista-seg div { display: grid; gap: 8px; border-left: 3px solid var(--turquesa); padding-left: 18px; }
+.lista-seg p { color: #B8D3D6; font-size: 16px; }
+
+/* integrações e implantação */
+.duas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 48px; }
+.integ { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.integ span { border: 1px solid var(--linha); border-radius: 12px; padding: 10px 14px; font-weight: 600; color: var(--petroleo); background: var(--nevoa); font-size: 15px; }
+.passos { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 16px; counter-reset: p; }
+.passos li { display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: start; counter-increment: p; }
+.passos li::before { content: counter(p); width: 38px; height: 38px; border-radius: 50%; background: var(--turquesa-claro); color: var(--petroleo); font-weight: 800; display: grid; place-items: center; }
+.passos b { display: block; color: var(--petroleo); }
+.passos span { color: var(--suave); font-size: 16px; }
+
+/* contato */
+.contato { background: linear-gradient(135deg, var(--petroleo) 0%, #0A5364 100%); color: #fff; border-radius: 28px; padding: 56px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.contato h2 { color: #fff; }
+.contato p { color: #CFE6E8; font-size: 18px; margin-top: 12px; }
+.contato .caixa { display: grid; gap: 14px; justify-items: start; }
+.contato .email { font-size: 18px; font-weight: 700; color: #fff; user-select: all; word-break: break-all; }
+.contato small { color: #9FC4C8; }
+@media (max-width: 820px) { .contato { grid-template-columns: 1fr; padding: 36px 26px; } }
+
+footer { padding-block: 40px; color: var(--suave); font-size: 14px; }
+footer .env { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+footer img { height: 38px; width: auto; }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="env">
+    <a class="marca" href="#inicio" aria-label="Acollia, início"><img src="img/logo.svg" alt="Acollia — saúde que acolhe" width="230" height="56"></a>
+    <nav aria-label="Seções">
+      <a href="#funcoes">Funções</a>
+      <a href="#telas">Telas</a>
+      <a href="#seguranca">Segurança</a>
+      <a class="botao" href="#contato"><span class="longo">Agendar </span>demonstração</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="abertura">
+  <div class="env grade">
+    <div class="texto">
+      <span class="rotulo">Enfermaria escolar</span>
+      <h1>Cuidar de cada aluno, com tudo à mão.</h1>
+      <p class="lead">A Acollia reúne num só lugar os atendimentos da enfermaria, as fichas médicas atualizadas pelas famílias, a agenda de remédios, a vacinação e as fichas de viagem. A família é avisada na hora e os dados de saúde ficam protegidos.</p>
+      <div class="acoes">
+        <a class="botao" href="#contato">Quero ver funcionando</a>
+        <a class="link" href="#telas">Ver as telas →</a>
+      </div>
+      <div class="selos" aria-label="Destaques">
+        <span>Feito para escolas</span><span>Funciona no computador e no tablet</span><span>De acordo com a LGPD</span><span>Com a marca da sua escola</span>
+      </div>
+    </div>
+    <div class="tela-grande">
+      <div class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Painel da enfermagem</span></div>
+      <picture><source srcset="img/painel.webp" type="image/webp"><img src="img/painel.jpg" alt="Painel da enfermagem na Acollia: alunos na enfermaria agora, atendimentos do dia, próxima dose, fichas aguardando revisão e avisos de estoque e vacinação" width="1600" height="1000"></picture>
+    </div>
+  </div>
+</section>
+
+<section id="para-quem">
+  <div class="env">
+    <div class="cabeca">
+      <span class="rotulo">Para quem</span>
+      <h2>Cada pessoa vê o que precisa, e só o que precisa</h2>
+    </div>
+    <div class="quem">
+      <div><h3>Enfermagem</h3><p>Registra o atendimento em poucos toques, com alergias e remédios do aluno sempre à vista.</p></div>
+      <div><h3>Coordenação</h3><p>Acompanha passagens pela enfermaria e prepara viagens, sem acesso a detalhes clínicos.</p></div>
+      <div><h3>Direção</h3><p>Vê indicadores por mês, por turma e por motivo, e é avisada quando algo foge do normal.</p></div>
+      <div><h3>Famílias</h3><p>Atualizam a ficha médica por um formulário e recebem aviso por e-mail ou WhatsApp.</p></div>
+      <div><h3>TI da escola</h3><p>Cuida de usuários, perfis, integrações e da identidade visual da escola.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="funcoes" id="funcoes">
+  <div class="env">
+    <div class="cabeca">
+      <span class="rotulo">Funções</span>
+      <h2>O dia a dia da enfermaria, do primeiro curativo à viagem de estudo</h2>
+    </div>
+    <div class="lista-funcoes">
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+        <h3>Atendimento rápido e seguro</h3><p>Sinais vitais, queixa, conduta e remédio dado. O sistema confere as alergias antes de registrar a medicação e imprime o protocolo para o aluno levar ao professor.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M12 12v6"/></svg>
+        <h3>Ficha médica sempre atualizada</h3><p>As famílias preenchem a ficha num formulário online e ela entra sozinha no prontuário. A enfermagem revisa o que mudou, e alergias graves ganham destaque em todas as telas.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/></svg>
+        <h3>Agenda de medicação com alertas</h3><p>Remédios de uso contínuo e tratamentos com horário. Aviso sonoro antes da dose, alerta de atraso e controle dos remédios guardados na enfermaria.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>
+        <h3>Carteira de vacinação e prazos</h3><p>Situação vacinal de cada aluno, carteira enviada pela família na matrícula e controle do prazo legal, com a lista pronta para comunicar o Conselho Tutelar.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>
+        <h3>Ficha de viagem em um clique</h3><p>Para cada turma: foto, contatos, alergias, tipo sanguíneo, remédios e autorizações assinadas. Imprime, baixa em PDF ou abre sem internet no tablet do professor.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.7a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7z"/><path d="M12 22V12"/><path d="m3.3 7 8.7 5 8.7-5"/></svg>
+        <h3>Estoque com validade</h3><p>Remédios e materiais por lote. O estoque baixa sozinho quando o remédio é dado e avisa sobre vencimentos e itens abaixo do mínimo.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/><path d="M22 8c0-2.3-.8-4.3-2-6"/><path d="M3.3 15.3a1 1 0 0 0 .7 1.7h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.6 18 8A6 6 0 0 0 6 8c0 4.6-1.4 6-2.7 7.3"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/></svg>
+        <h3>Alerta de surto</h3><p>Percebe quando febre, piolho, conjuntivite ou virose aumentam numa turma e sugere o comunicado às famílias, sem expor nomes.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <h3>Indicadores e relatórios</h3><p>Atendimentos por mês, turma e motivo, acidentes, vacinação e estoque. Tudo com filtros, para imprimir ou baixar em PDF e Excel.</p></article>
+      <article class="funcao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.5a2 2 0 0 0-1.9 1.5l-2.4 8.2a.25.25 0 0 1-.5 0L9.2 2.3a.25.25 0 0 0-.5 0l-2.4 8.2A2 2 0 0 1 4.5 12H2"/></svg>
+        <h3>Ficha de emergência</h3><p>Uma folha com o essencial para o SAMU ou o hospital: alergias, condições, remédios e contatos, pronta para imprimir no momento em que precisa.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="telas">
+  <div class="env">
+    <div class="cabeca">
+      <span class="rotulo">Telas</span>
+      <h2>Veja como é por dentro</h2>
+      <p>Imagens da versão de demonstração, com alunos e dados fictícios.</p>
+    </div>
+    <div class="telas-lista">
+      <div class="tela-item">
+        <div class="txt"><h3>Ficha do aluno</h3><p>Tudo de saúde do aluno numa página, com o que é urgente no topo.</p>
+          <ul><li>Alergia grave em destaque</li><li>Contatos de emergência e forma preferida de aviso</li><li>Histórico de atendimentos, vacinas e remédios</li></ul></div>
+        <figure><picture><source srcset="img/aluno.webp" type="image/webp"><img src="img/aluno.jpg" alt="Ficha de uma aluna fictícia com faixa vermelha de alergia grave, dados de saúde e contatos de emergência" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+      <div class="tela-item">
+        <div class="txt"><h3>Agenda de medicação</h3><p>Doses do dia, tratamentos em curso e remédios guardados, com aviso de validade e de devolução à família.</p></div>
+        <figure><picture><source srcset="img/agenda.webp" type="image/webp"><img src="img/agenda.jpg" alt="Agenda de medicação com remédios guardados na geladeira e avisos de validade" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+      <div class="tela-item">
+        <div class="txt"><h3>Ficha de viagem</h3><p>Escolha a turma e o que entra na ficha. Ela sai com as autorizações de viagem já assinadas pelas famílias.</p></div>
+        <figure><picture><source srcset="img/viagem.webp" type="image/webp"><img src="img/viagem.jpg" alt="Tela de viagem pedagógica com a lista de alunos, situação da ficha médica e autorizações assinadas" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+      <div class="tela-item">
+        <div class="txt"><h3>Indicadores</h3><p>Para a direção: o que mais leva alunos à enfermaria, em que turmas e em que meses, com números pequenos protegidos para ninguém ser identificado.</p></div>
+        <figure><picture><source srcset="img/indicadores.webp" type="image/webp"><img src="img/indicadores.jpg" alt="Painel de indicadores com atendimentos por mês, principais motivos e incidência por turma" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+      <div class="tela-item">
+        <div class="txt"><h3>Estoque da enfermaria</h3><p>Saldo por item e lote, com o que vence primeiro e o que precisa comprar.</p></div>
+        <figure><picture><source srcset="img/estoque.webp" type="image/webp"><img src="img/estoque.jpg" alt="Lista do estoque com saldo, validade e situação de cada item" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+      <div class="tela-item">
+        <div class="txt"><h3>Relatórios</h3><p>Relatórios prontos com filtros por período, turma, aluno e motivo. Imprima ou baixe em PDF e Excel.</p></div>
+        <figure><picture><source srcset="img/relatorios.webp" type="image/webp"><img src="img/relatorios.jpg" alt="Tela de relatórios com filtros e a tabela de atendimentos no período" loading="lazy" width="1600" height="1000"></picture></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seguranca" id="seguranca">
+  <div class="env">
+    <div class="cabeca">
+      <span class="rotulo">Segurança e LGPD</span>
+      <h2>Dado de saúde é dado sensível. A Acollia trata assim.</h2>
+      <p>A proteção está no próprio sistema, e não depende de cada pessoa lembrar das regras.</p>
+    </div>
+    <div class="lista-seg">
+      <div><h3>Cada perfil vê só o seu</h3><p>Enfermagem, coordenação, direção e TI têm acessos diferentes, e o servidor bloqueia o que não é permitido.</p></div>
+      <div><h3>Dados cifrados</h3><p>Informações de saúde e arquivos são guardados criptografados e trafegam só por conexão segura.</p></div>
+      <div><h3>Tudo fica registrado</h3><p>Quem viu, alterou, imprimiu ou exportou cada ficha fica na auditoria.</p></div>
+      <div><h3>Entrada segura</h3><p>Login com a conta Microsoft da escola ou com senha e verificação em duas etapas.</p></div>
+      <div><h3>Só o necessário</h3><p>Relatórios sem texto clínico livre e números pequenos ocultos para quem só vê indicadores.</p></div>
+      <div><h3>Cópias de segurança</h3><p>Backup cifrado automático, para nada se perder.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="implantacao">
+  <div class="env duas">
+    <div>
+      <span class="rotulo">Integrações</span>
+      <h2 style="margin-top:12px">Conversa com o que a escola já usa</h2>
+      <p style="color:var(--suave);margin-top:14px">Alunos, turmas e documentos vêm do sistema acadêmico. As fichas das famílias chegam pelo formulário online. Não é preciso digitar tudo de novo.</p>
+      <div class="integ"><span>Sistema acadêmico</span><span>Formulários online</span><span>Microsoft 365</span><span>E-mail e WhatsApp</span><span>Catálogo de medicamentos da ANVISA</span></div>
+    </div>
+    <div>
+      <span class="rotulo">Implantação</span>
+      <h2 style="margin-top:12px">Da primeira conversa ao uso</h2>
+      <ol class="passos">
+        <li><div><b>Conversa e demonstração</b><span>Entendemos a rotina da enfermaria e mostramos o sistema funcionando.</span></div></li>
+        <li><div><b>Configuração com a sua escola</b><span>Logo e cores da escola, integração com o sistema acadêmico e os formulários.</span></div></li>
+        <li><div><b>Treinamento da equipe</b><span>Enfermagem, coordenação e TI aprendem com os dados reais da escola.</span></div></li>
+        <li><div><b>Uso e acompanhamento</b><span>Ajustes nas primeiras semanas e suporte contínuo.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="contato" style="padding-top:0">
+  <div class="env">
+    <div class="contato">
+      <div>
+        <h2>Quer ver a Acollia funcionando?</h2>
+        <p>Mostro o sistema em uma conversa de 30 minutos, com a rotina da sua enfermaria em mente.</p>
+      </div>
+      <div class="caixa">
+        <a class="botao claro" href="mailto:lzf.steveo@gmail.com?subject=Quero%20conhecer%20a%20Acollia">Escrever um e-mail</a>
+        <span class="email">lzf.steveo@gmail.com</span>
+        <small>Respondo em até 1 dia útil.</small>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <img src="img/simbolo.svg" alt="" width="44" height="38">
+    <span>© 2026 Acollia · saúde que acolhe</span>
+  </div>
+</footer>
+</body>
+</html>
