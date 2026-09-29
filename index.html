@@ -118,10 +118,25 @@ section { padding-block: 88px; scroll-margin-top: 72px; }
 .passos span { color: var(--suave); font-size: 16px; }
 
 /* contato */
-.contato { background: linear-gradient(135deg, var(--petroleo) 0%, #0A5364 100%); color: #fff; border-radius: 28px; padding: 56px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.contato { background: linear-gradient(135deg, var(--petroleo) 0%, #0A5364 100%); color: #fff; border-radius: 28px; padding: 56px; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: 40px; align-items: start; }
 .contato h2 { color: #fff; }
 .contato p { color: #CFE6E8; font-size: 18px; margin-top: 12px; }
-.contato .caixa { display: grid; gap: 14px; justify-items: start; }
+.contato .intro { display: grid; gap: 4px; align-self: start; }
+.contato .alt { font-size: 15px; margin-top: 18px; }
+.contato .alt .email { display: inline-block; word-break: normal; font-size: 16px; }
+.form { display: grid; gap: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 24px; }
+.form .linha2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px; }
+.form label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; color: #E6F2F2; }
+.form input:not([type=checkbox]), .form select, .form textarea { font: inherit; font-size: 16px; font-weight: 400; color: var(--tinta); background: #fff; border: 1.5px solid transparent; border-radius: 10px; padding: 11px 12px; width: 100%; }
+.form textarea { resize: vertical; }
+.form input:focus, .form select:focus, .form textarea:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(46,196,182,.35); }
+.form .aceite { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; color: #CFE6E8; }
+.form .aceite input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--turquesa); flex: none; }
+.form .pote { position: absolute; left: -9999px; }
+.form button { justify-self: start; border: 0; cursor: pointer; font: inherit; font-weight: 700; }
+.form button[disabled] { opacity: .6; cursor: wait; }
+.form .status { font-size: 15px; min-height: 1.2em; color: #fff; }
+.form .status.erro { color: #FFD2CC; }
 .contato .email { font-size: 18px; font-weight: 700; color: #fff; user-select: all; word-break: break-all; }
 .contato small { color: #9FC4C8; }
 @media (max-width: 820px) { .contato { grid-template-columns: 1fr; padding: 36px 26px; } }
@@ -292,15 +307,44 @@ footer img { height: 38px; width: auto; }
 <section id="contato" style="padding-top:0">
   <div class="env">
     <div class="contato">
-      <div>
+      <div class="intro">
         <h2>Quer ver a Acollia funcionando?</h2>
-        <p>Mostro o sistema em uma conversa de 30 minutos, com a rotina da sua enfermaria em mente.</p>
+        <p>Deixe seus dados que eu entro em contato para marcar uma conversa de 30 minutos, com a rotina da sua enfermaria em mente.</p>
+        <p class="alt">Se preferir, escreva direto para <span class="email">contato@acollia.com.br</span></p>
       </div>
-      <div class="caixa">
-        <a class="botao claro" href="mailto:contato@acollia.com.br?subject=Quero%20conhecer%20a%20Acollia">Escrever um e-mail</a>
-        <span class="email">contato@acollia.com.br</span>
-        <small>Respondo em até 1 dia útil.</small>
-      </div>
+      <form id="form-demo" class="form" novalidate>
+        <input type="hidden" name="access_key" value="513602b1-eaf0-47b0-b038-8ee7eb8fd68b">
+        <input type="hidden" name="subject" value="Novo pedido de demonstração — Acollia">
+        <input type="hidden" name="from_name" value="Site Acollia">
+        <input type="checkbox" name="botcheck" class="pote" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="linha2">
+          <label>Seu nome<input name="nome" required autocomplete="name"></label>
+          <label>Cargo<input name="cargo" placeholder="Ex.: enfermagem, direção" autocomplete="organization-title"></label>
+        </div>
+        <label>Escola<input name="escola" required autocomplete="organization"></label>
+        <div class="linha2">
+          <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+          <label>WhatsApp / telefone<input name="telefone" type="tel" autocomplete="tel" placeholder="(11) 90000-0000"></label>
+        </div>
+        <div class="linha2">
+          <label>Número de alunos
+            <select name="alunos">
+              <option value="">Selecione</option>
+              <option>Até 300</option><option>300 a 800</option><option>800 a 1.500</option><option>Mais de 1.500</option>
+            </select>
+          </label>
+          <label>Melhor horário
+            <select name="horario">
+              <option value="">Qualquer</option>
+              <option>Manhã</option><option>Tarde</option><option>Fim do dia</option>
+            </select>
+          </label>
+        </div>
+        <label>Mensagem (opcional)<textarea name="mensagem" rows="3" placeholder="Conte um pouco da enfermaria ou do que gostaria de ver"></textarea></label>
+        <label class="aceite"><input type="checkbox" name="aceite" value="sim" required> Autorizo o uso destes dados só para a Acollia entrar em contato comigo sobre a demonstração.</label>
+        <button class="botao claro" type="submit">Pedir demonstração</button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -312,5 +356,24 @@ footer img { height: 38px; width: auto; }
     <span>© 2026 Acollia · saúde que acolhe</span>
   </div>
 </footer>
+<script>
+(() => {
+  const f = document.getElementById('form-demo'); if (!f) return;
+  const st = f.querySelector('.status'), bt = f.querySelector('button');
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault(); st.className = 'status';
+    if (!f.checkValidity()) { st.textContent = 'Preencha nome, escola, e-mail e marque a autorização.'; st.classList.add('erro'); f.reportValidity(); return; }
+    bt.disabled = true; st.textContent = 'Enviando…';
+    try {
+      const r = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.success === false) throw new Error(j.message || r.status);
+      f.reset(); st.textContent = 'Recebido! Vou entrar em contato em até 1 dia útil para marcar a demonstração.';
+    } catch (err) {
+      st.textContent = 'Não consegui enviar agora. Escreva para contato@acollia.com.br que eu respondo.'; st.classList.add('erro');
+    } finally { bt.disabled = false; }
+  });
+})();
+</script>
 </body>
 </html>
